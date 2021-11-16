@@ -158,7 +158,11 @@ let messageTimer;
 const displayMovements = function (account, sort = false) {
   containerMovements.innerHTML = ''; // clear den Standard inhalt innerhal von movements
 
-  const movs = sort ? account.movements.slice().sort((a, b) => a - b) : account.movements;
+  const movs = sort
+    ? account.movements.slice().sort((a, b) => a.value - b.value)
+    : account.movements;
+
+  console.log(movs);
 
   movs.forEach((mov, i) => {
     const type = mov.value > 0 ? 'IN' : 'OUT';
@@ -405,7 +409,7 @@ let isSorting = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
   isSorting = !isSorting;
-  displayMovements(currentAccount.movements, isSorting);
+  displayMovements(currentAccount, isSorting);
 });
 
 // const currencies = new Map([
